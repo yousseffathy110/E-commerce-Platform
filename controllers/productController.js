@@ -2,8 +2,8 @@
 const products = require('../data/products');
 
 function listProducts() {
-    products.forEach(product => {
-        console.log(`${product.id}. ${product.name} - $${product.price}`);
+    products.forEach((product , index) => {
+        console.log(`${index + 1 }. ${product.name} - $${product.price}`);
     });
 }
 

@@ -1,5 +1,6 @@
 const products = require('../data/products');
 const prompt = require('prompt-sync')({ sigint: true });
+const chalk = require('chalk');
 
 function addProduct() {
   console.log("\n--- Add New Product ---");
@@ -7,15 +8,14 @@ function addProduct() {
   let id;
   let existingProduct;
 
-  // Loop until a unique product ID is entered
   do {
     id = parseInt(prompt("Enter Product ID: "), 10);
     existingProduct = products.find(product => product.id === id);
 
     if (existingProduct) {
-      console.log(`Error: Product with ID ${id} already exists. Please enter a different ID.`);
+      console.log(chalk.red(`Error: Product with ID ${id} already exists. Please enter a different ID.`));
     }
-  } while (existingProduct); // Keep prompting if the ID already exists
+  } while (existingProduct);
 
   // Proceed to ask for other product details
   const name = prompt("Enter Product Name: ");
@@ -36,15 +36,23 @@ function addProduct() {
   products.push(newProduct);
   console.log(`Product "${name}" added successfully!`);
 }
+
 function updateProduct() {
-  const id = parseInt(prompt("Enter Product ID to update: "), 10);
-  const index = products.findIndex(p => p.id === id);
+  let id;
+  let index;
 
-  if (index === -1) {
-      console.log(`Error: Product with ID ${id} does not exist.`);
-      return;
-  }
+  do {
+    id = parseInt(prompt("Enter Product ID: "), 10);
+    index = products.findIndex(p => p.id === id);
 
+    if (index === -1) {
+        console.log(chalk.red(`Error: Product with ID ${id} does not exist.`));
+    }
+
+  } while (index === -1);
+
+
+  
   console.log(`Updating product with ID ${id}:`);
   
   const updatedName = prompt(`Enter new name (current: ${products[index].name}): `);
@@ -52,7 +60,6 @@ function updateProduct() {
   const updatedPrice = parseFloat(prompt(`Enter new price (current: ${products[index].price}): `));
   const updatedStock = parseInt(prompt(`Enter new stock (current: ${products[index].stock}): `));
 
-  // Update product with new values or keep current if empty
   products[index] = {
       id,
       name: updatedName || products[index].name,
@@ -61,23 +68,31 @@ function updateProduct() {
       stock: isNaN(updatedStock) ? products[index].stock : updatedStock
   };
 
-  console.log(`Product with ID ${id} updated successfully!`);
+  console.log(chalk.greenBright(`Product with ID ${id} updated successfully!`));
 }
 
 function deleteProduct() {
-  const id = parseInt(prompt("Enter Product ID to delete: "), 10);
-  const index = products.findIndex(p => p.id === id);
+  let id ;
+  let index;
 
-  if (index === -1) {
-      console.log(`Error: Product with ID ${id} does not exist.`);
-      return;
-  }
+  do {
+    id = parseInt(prompt("Enter Product ID to delete: "), 10);
+    existingProduct = products.find(product => product.id !== id);
 
-  // Confirm deletion
+    index = products.findIndex(p => p.id === id);
+
+
+    if (index === -1) {
+        console.log(chalk.red(`Error: Product with ID ${id} does not exist.`));
+    }
+
+  } while (index === -1);
+
+
   const confirm = prompt(`Are you sure you want to delete the product with ID ${id}? (yes/no): `);
-  if (confirm.toLowerCase() === 'yes') {
+  if (confirm.toLowerCase() === 'yes' || 'y') {
       products.splice(index, 1);
-      console.log(`Product with ID ${id} deleted successfully!`);
+      console.log(chalk.greenBright(`Product with ID ${id} deleted successfully!`));
   } else {
       console.log(`Deletion of product with ID ${id} canceled.`);
   }

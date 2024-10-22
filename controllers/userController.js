@@ -2,13 +2,12 @@ const prompt = require('prompt-sync')({ sigint: true });
 const User = require('../classes/User');
 
 let adminUser = new User(1, 'Admin', 'admin@example.com', true);
-let loggedInUser = null; // To keep track of the logged-in user
+let loggedInUser = null; 
 
 function adminLogin() {
     const email = prompt("Enter admin email: ");
-    const password = prompt("Enter admin password: "); // You can hardcode a password for demo
+    const password = prompt("Enter admin password: ");
 
-    // Check credentials (here, hardcoded for simplicity)
     if (email === adminUser.email && password === 'admin123') {
         loggedInUser = adminUser;
         loggedInUser.login();

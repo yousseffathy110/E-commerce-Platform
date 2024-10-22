@@ -1,6 +1,4 @@
 // Manages order actions (checkout, order status)
-// controllers/orderController.js
-// controllers/orderController.js
 const Cart = require('../classes/Cart');
 const Order = require('../classes/Order');
 
