@@ -32,9 +32,8 @@ function addProduct() {
     stock
   };
 
-  // Add the new product to the products array
   products.push(newProduct);
-  console.log(`Product "${name}" added successfully!`);
+  console.log(chalk.greenBright(`Product "${name}" added successfully!`));
 }
 
 function updateProduct() {

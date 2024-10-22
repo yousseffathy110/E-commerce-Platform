@@ -6,11 +6,12 @@ const { checkout } = require('./controllers/orderController');
 const User = require('./classes/User');
 const { adminLogin, logout } = require('./controllers/userController'); 
 const { addProduct, updateProduct, deleteProduct } = require('./controllers/adminController');
+const chalk = require('chalk');
 
 console.log("Welcome to the eCommerce platform!\n");
 
 let action;
-let isAdminLoggedIn = true; // true for development purposes
+let isAdminLoggedIn = false; // true for development purposes
 
 
 do {

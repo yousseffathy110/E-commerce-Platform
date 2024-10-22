@@ -1,3 +1,5 @@
+const chalk = require("chalk");
+
 // Class for managing users (admin or customer) 
 class User {
   constructor(id, name, email, isAdmin = false) {
@@ -8,11 +10,11 @@ class User {
   }
 
   login() {
-      console.log(`${this.name} logged in`);
+      console.log(chalk.green(`${this.name} logged in`));
   }
 
   logout() {
-      console.log(`${this.name} logged out`);
+      console.log(chalk.green(`${this.name} logged out`));
   }
 }
 

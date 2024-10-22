@@ -1,3 +1,5 @@
+const chalk = require("chalk");
+
 // Class for handling orders 
 class Order {
   constructor(user, items, totalAmount) {
@@ -10,7 +12,7 @@ class Order {
 
   confirmOrder() {
       this.status = 'confirmed';
-      console.log('Order confirmed!');
+      console.log(chalk.greenBright('Order confirmed!'));
   }
 
   updateStatus(status) {
